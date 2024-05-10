@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import axios from "axios";
+
+const url = "http://localhost:8000";
 
 const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -20,7 +23,18 @@ const Login = () => {
   };
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(form);
+    try {
+      axios
+        .post(`${url}/api/login`, {
+          email: form.email,
+          password: form.password,
+        })
+        .then((response) => {
+          console.log(response);
+        });
+    } catch (error) {
+      console.log("Error message: ", error);
+    }
   };
 
   return (
